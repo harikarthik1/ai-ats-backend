@@ -1,14 +1,21 @@
-# Use official Java image
-FROM eclipse-temurin:21-jdk
+# Stage 1: Build using Maven
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy jar file
-COPY target/resume-analyzer-0.0.1-SNAPSHOT.jar app.jar
+COPY pom.xml .
+COPY src ./src
 
-# Expose port
+RUN mvn clean package -DskipTests
+
+
+# Stage 2: Run app
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# Run application
 ENTRYPOINT ["java","-jar","app.jar"]
