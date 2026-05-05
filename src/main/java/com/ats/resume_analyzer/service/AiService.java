@@ -23,9 +23,6 @@ public class AiService {
     private static final String GEMINI_URL =
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
 
-    // =========================================================
-    // 1️⃣ Extract Structured Skills From Job Description
-    // =========================================================
 
     public List<String> extractSkillsFromJD(String jobDescription) {
 
@@ -69,9 +66,6 @@ public class AiService {
         }
     }
 
-    // =========================================================
-    // 2️⃣ Semantic Evaluation
-    // =========================================================
 
     public SemanticResult semanticEvaluation(String resumeText, String jobDescription) {
 
@@ -139,9 +133,6 @@ public class AiService {
         }
     }
 
-    // =========================================================
-    // 🔹 Gemini API Call
-    // =========================================================
 
     private String callGemini(String prompt) {
 
@@ -183,9 +174,6 @@ public class AiService {
         }
     }
 
-    // =========================================================
-    // 🔹 Sanitize AI Response
-    // =========================================================
 
     private String sanitizeResponse(String response) {
 
@@ -212,9 +200,6 @@ public class AiService {
         return response.trim();
     }
 
-    // =========================================================
-    // 🔹 Inner Result Class
-    // =========================================================
 
     public static class SemanticResult {
 
