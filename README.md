@@ -73,7 +73,3 @@ For Docker deployment, use the provided Dockerfile.
 2. Create a feature branch
 3. Make changes and add tests
 4. Submit a pull request
-
-## License
-
-[Specify license if applicable]
