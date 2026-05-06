@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -138,17 +140,24 @@ public class AiService {
 
         try {
 
-            String requestBody = """
-                    {
-                      "contents": [
-                        {
-                          "parts": [
-                            { "text": "%s" }
-                          ]
-                        }
-                      ]
-                    }
-                    """.formatted(prompt.replace("\"", "\\\""));
+            // Build request body using ObjectMapper to properly escape special characters
+            Map<String, Object> requestMap = new HashMap<>();
+            Map<String, Object> contents = new HashMap<>();
+            Map<String, Object> parts = new HashMap<>();
+            
+            parts.put("text", prompt);
+            
+            List<Map<String, Object>> partsList = new ArrayList<>();
+            partsList.add(parts);
+            
+            contents.put("parts", partsList);
+            
+            List<Map<String, Object>> contentsList = new ArrayList<>();
+            contentsList.add(contents);
+            
+            requestMap.put("contents", contentsList);
+            
+            String requestBody = objectMapper.writeValueAsString(requestMap);
 
             String response = webClient.post()
                     .uri(GEMINI_URL + apiKey)
