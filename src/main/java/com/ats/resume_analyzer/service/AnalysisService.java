@@ -140,7 +140,8 @@ public class AnalysisService {
                         analysis.getScore(),              // final score
                         analysis.getSemanticScore(),
                         analysis.getAnalyzedAt(),
-                        analysis.getAiSuggestions()
+                        analysis.getAiSuggestions(),
+                        analysis.getJobDescription()
                 ))
                 .toList();
     }

@@ -16,4 +16,5 @@ public class AnalysisHistoryResponse {
     private int semanticScore;
     private LocalDateTime analyzedAt;
     private String summary;
+    private String jobDescription;
 }
