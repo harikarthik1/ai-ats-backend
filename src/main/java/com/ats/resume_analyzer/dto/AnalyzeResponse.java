@@ -10,13 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 public class AnalyzeResponse {
 
-    private Integer finalScore;
-    private Integer semanticScore;
-    private Integer keywordScore;
-
-    private Set<String> matchedKeywords;
-    private Set<String> missingKeywords;
-
-    private List<String> aiMissingSkills;
-    private List<String> aiSuggestions;
+    private Long analysisId;
+    private Integer score;
+    private List<String> skills;
+    private List<String> recommendations;
 }

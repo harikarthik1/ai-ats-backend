@@ -59,12 +59,9 @@ public class AnalysisService {
         analysisRepository.save(analysis);
 
         return new AnalyzeResponse(
+                analysis.getId(),
                 finalScore,
-                semanticScore,
-                keywordScore,
-                matched,
-                missing,
-                aiResult.getMissingSkills(),
+                new ArrayList<>(matched),
                 aiResult.getSuggestions()
         );
     }
@@ -142,8 +139,21 @@ public class AnalysisService {
                         analysis.getResume().getFileName(),
                         analysis.getScore(),              // final score
                         analysis.getSemanticScore(),
-                        analysis.getAnalyzedAt()
+                        analysis.getAnalyzedAt(),
+                        analysis.getAiSuggestions()
                 ))
                 .toList();
+    }
+
+    public void deleteAnalysis(Long analysisId) {
+        User user = getAuthenticatedUser();
+        Analysis analysis = analysisRepository.findById(analysisId)
+                .orElseThrow(() -> new RuntimeException("Analysis not found"));
+
+        if (!analysis.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("Unauthorized access");
+        }
+
+        analysisRepository.delete(analysis);
     }
 }

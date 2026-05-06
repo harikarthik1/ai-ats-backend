@@ -40,6 +40,6 @@ public class AuthController {
             throw new RuntimeException("Invalid Credentials");
         }
         String token = jwtUtil.generateToken(user.getEmail());
-        return new AuthResponse(token);
+        return new AuthResponse(token, user.getId(), user.getEmail(), user.getName());
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/analysis")
@@ -23,5 +24,11 @@ public class AnalysisController {
     @GetMapping("/my-history")
     public List<AnalysisHistoryResponse> getHistory() {
         return analysisService.getMyAnalysisHistory();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAnalysis(@PathVariable Long id) {
+        analysisService.deleteAnalysis(id);
+        return ResponseEntity.ok(Map.of("message", "Analysis deleted successfully"));
     }
 }
